@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEADRUSH — Multiplayer</title>
+  <link rel="icon" href="img/icon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- RAIN CANVAS -->
+  <canvas id="rain-canvas"></canvas>
+
+  <!-- SCANLINES -->
+  <div class="scanlines"></div>
+
+  <!-- LIGHTNING FLASH -->
+  <div id="lightning-flash"></div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor">
+    <div class="c-inner"></div>
+    <div class="c-outer"></div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div id="page">
+
+    <!-- ===== HEADER / LOGO ===== -->
+    <header>
+      <div class="logo-wrap">
+        <img src="img/DeadrushLOGO.png" alt="Deadrush" class="logo-img">
+      </div>
+      <p class="tagline">Multiplayer Zombie Survival</p>
+    </header>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-skull">☠</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ===== ABOUT ===== -->
+    <div class="card">
+      <h2 class="card-title"><span class="ct-icon">▶</span> About</h2>
+      <p class="about-text">
+        <strong>Deadrush</strong> — это <span class="hl-red">2D-платформер о выживании</span>
+        в мире, захваченном зомби. Сражайся в одиночку или объединяйся с друзьями по
+        <span class="hl-cyan">локальной сети</span>. Отстреливай волны нежити, набирай очки,
+        выживай как можно дольше — или уничтожь
+        <span class="hl-yellow">соперников в режиме PvP</span>.
+        <br><br>
+        Бесконечная карта, <span class="hl-green">кооперативный</span> и
+        <span class="hl-red">PvP</span> режимы, три уровня сложности, частицы крови,
+        дождь и молнии — атмосфера апокалипсиса гарантирована.
+      </p>
+    </div>
+
+    <!-- ===== FEATURES ===== -->
+    <div class="card">
+      <h2 class="card-title"><span class="ct-icon">▶</span> Features</h2>
+      <div class="features">
+        <div class="feature-item">
+          <span class="fi-icon">⚡</span>
+          Мультиплеер по LAN
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">☠</span>
+          Волны зомби
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">⚔</span>
+          Режим PvP
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">🛡</span>
+          Кооп до 5 игроков
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">🌧</span>
+          Дождь и молнии
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">🗺</span>
+          Бесконечная карта
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">🎯</span>
+          3 уровня сложности
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">💥</span>
+          Частицы и эффекты
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONTROLS ===== -->
+    <div class="card">
+      <h2 class="card-title"><span class="ct-icon">▶</span> Управление</h2>
+      <div class="controls-grid">
+        <div class="ctrl">
+          <span class="key">W</span>
+          <span>/ <span class="key">↑</span> / <span class="key">Space</span></span>
+          &nbsp;— Прыжок
+        </div>
+        <div class="ctrl">
+          <span class="key">A</span>
+          <span>/ <span class="key">←</span></span>
+          &nbsp;— Влево
+        </div>
+        <div class="ctrl">
+          <span class="key">D</span>
+          <span>/ <span class="key">→</span></span>
+          &nbsp;— Вправо
+        </div>
+        <div class="ctrl">
+          <span class="key">ЛКМ</span>
+          &nbsp;— Выстрел
+        </div>
+        <div class="ctrl">
+          <span class="key">R</span>
+          &nbsp;— Перезарядка
+        </div>
+        <div class="ctrl">
+          <span class="key">ESC</span>
+          &nbsp;— Пауза
+        </div>
+        <div class="ctrl">
+          <span class="key">F11</span>
+          &nbsp;— Полный экран
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DIFFICULTY ===== -->
+    <div class="card" id="diff-card">
+      <h2 class="card-title"><span class="ct-icon">▶</span> Сложность</h2>
+      <div class="diff-list">
+        <div class="diff-row">
+          <span class="diff-label easy">Easy</span>
+          <div class="diff-bar-bg">
+            <div class="diff-bar easy" id="bar-easy"></div>
+          </div>
+          <span class="diff-desc">Зомби медленные</span>
+        </div>
+        <div class="diff-row">
+          <span class="diff-label normal">Normal</span>
+          <div class="diff-bar-bg">
+            <div class="diff-bar normal" id="bar-normal"></div>
+          </div>
+          <span class="diff-desc">Сбалансировано</span>
+        </div>
+        <div class="diff-row">
+          <span class="diff-label hard">Hard</span>
+          <div class="diff-bar-bg">
+            <div class="diff-bar hard" id="bar-hard"></div>
+          </div>
+          <span class="diff-desc">Быстрые и злые</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MULTIPLAYER ===== -->
+    <div class="card">
+      <h2 class="card-title"><span class="ct-icon">▶</span> Мультиплеер</h2>
+      <div class="mp-modes">
+        <div class="mp-mode coop">
+          <span class="mp-mode-icon">🛡</span>
+          <span class="mp-mode-name">Co-op</span>
+          <span class="mp-mode-desc">До 5 игроков против волн зомби. Выживайте вместе.</span>
+        </div>
+        <div class="mp-mode pvp">
+          <span class="mp-mode-icon">⚔</span>
+          <span class="mp-mode-name">PvP</span>
+          <span class="mp-mode-desc">Сражайтесь между собой. Последний выживший победит.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DOWNLOAD ===== -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-skull">☠</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="download-section">
+      <div class="zombie-deco">
+        <div class="zombie-pixel"></div>
+        <div class="zombie-pixel"></div>
+        <div class="zombie-pixel"></div>
+        <div class="zombie-pixel"></div>
+        <div class="zombie-pixel"></div>
+      </div>
+
+      <a class="btn-download" href="builds/Deadrush_Multiplayer.exe" download>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <span class="btn-icon">▼</span>
+        <span class="btn-text">Download</span>
+      </a>
+
+      <div class="dl-meta">
+        <span>Windows x64</span>
+        <span>•</span>
+        <span>.exe</span>
+        <span>•</span>
+        <span>Free</span>
+      </div>
+    </div>
+
+    <div class="divider" style="margin-top:48px;">
+      <div class="divider-line"></div>
+      <span class="divider-skull">☠</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <p class="footer-text">
+        &copy; 2025 <span class="hl">DEADRUSH</span> — All rights reserved
+      </p>
+    </footer>
+
+  </div><!-- /page -->
+
+  <script>
+    // ===================== CURSOR =====================
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+
+    // ===================== RAIN =====================
+    const canvas = document.getElementById('rain-canvas');
+    const ctx = canvas.getContext('2d');
+    let drops = [];
+
+    function resizeCanvas() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drops = [];
+      for (let i = 0; i < 220; i++) {
+        drops.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          speed: 8 + Math.random() * 12,
+          len:   14 + Math.random() * 20,
+          alpha: 0.25 + Math.random() * 0.5
+        });
+      }
+    }
+
+    function drawRain() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const d of drops) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(100, 140, 200, ${d.alpha})`;
+        ctx.lineWidth = 0.8;
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + d.len * 0.18, d.y + d.len);
+        ctx.stroke();
+        d.x += d.speed * 0.15;
+        d.y += d.speed;
+        if (d.y > canvas.height) {
+          d.y = -20;
+          d.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(drawRain);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    drawRain();
+
+    // ===================== LIGHTNING =====================
+    const flash = document.getElementById('lightning-flash');
+    function triggerLightning() {
+      const delay = 4000 + Math.random() * 8000;
+      setTimeout(() => {
+        flash.style.background = 'rgba(180,200,255,0.12)';
+        setTimeout(() => {
+          flash.style.background = 'rgba(180,200,255,0)';
+          setTimeout(() => {
+            flash.style.background = 'rgba(180,200,255,0.07)';
+            setTimeout(() => {
+              flash.style.background = 'rgba(180,200,255,0)';
+            }, 60);
+          }, 80);
+        }, 50);
+        triggerLightning();
+      }, delay);
+    }
+    triggerLightning();
+
+    // ===================== DIFFICULTY BARS ANIMATION =====================
+    const diffCard = document.getElementById('diff-card');
+    let barsAnimated = false;
+
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting && !barsAnimated) {
+          barsAnimated = true;
+          setTimeout(() => document.getElementById('bar-easy').classList.add('animate'),   100);
+          setTimeout(() => document.getElementById('bar-normal').classList.add('animate'), 250);
+          setTimeout(() => document.getElementById('bar-hard').classList.add('animate'),   400);
+        }
+      }
+    }, { threshold: 0.3 });
+
+    observer.observe(diffCard);
+  </script>
+
+</body>
+</html>
